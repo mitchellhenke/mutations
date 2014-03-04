@@ -4,7 +4,7 @@ module Mutations
       :nils => false,        # true allows an explicit nil to be valid. Overrides any other options
       :class => nil,         # default is the attribute name.to_s.camelize.constantize.  This overrides it with class or class.constantize
       :builder => nil,       # Could be a class or a string which will be constantized. If present, and a hash is passed, then we use that to construct a model
-      :new_records => false, # If false, unsaved AR records are not valid. Things that don't respond to new_record? are valid.  true: anything is valid
+      :new_records => false, # If false, unsaved Sequel records are not valid. Things that don't respond to new? are valid.  true: anything is valid
     }
 
     def initialize(name, opts = {})
@@ -54,7 +54,7 @@ module Mutations
 
       # We have a winner, someone passed in the correct data type!
       if data.is_a?(options[:class])
-        return [data, :new_records] if !options[:new_records] && (data.respond_to?(:new_record?) && data.new_record?)
+        return [data, :new_records] if !options[:new_records] && (data.respond_to?(:new?) && data.new?)
         return [data, nil]
       end
 

@@ -4,13 +4,13 @@ describe "Mutations::ModelFilter" do
 
   class SimpleModel; end
   class AlwaysNew
-    def new_record?
+    def new?
       true
     end
   end
 
   class AlwaysSaved
-    def new_record?
+    def new?
       false
     end
   end
